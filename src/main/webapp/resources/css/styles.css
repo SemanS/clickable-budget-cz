@@ -189,18 +189,6 @@ body {
     background: #f5bdab !important;
 }
 
-/*html[data-useragent*='rv:11.0'] body {
-    background: blue !important;
-    color: blue;
-}*/
-
-/*@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-    .html {
-        background: blue !important;
-        color: blue;
-    }
-}*/
-
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
     span.ct-label.ct-horizontal.ct-start {
         height: 14px !important;
@@ -217,13 +205,3 @@ body {
 
 }
 
-/*html[data-useragent*='MSIE 10.0'] body {
-    background: blue !important;
-    color: blue;
-}*/
-
-/*
-:-ms-fullscreen, :root .selector {
-    background: blue !important;
-    color: blue;
-}*/

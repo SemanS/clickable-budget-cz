@@ -18,6 +18,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.faces.bean.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
@@ -32,7 +33,7 @@ import static java.util.stream.Collectors.toCollection;
 /**
  * Created by Slavo on 13.09.2016.
  */
-@ApplicationScoped
+@RequestScoped
 @Service
 public class IncomeAndOutcomeServiceImpl implements IncomeAndOutcomeService {
 
@@ -125,10 +126,6 @@ public class IncomeAndOutcomeServiceImpl implements IncomeAndOutcomeService {
             outcome.setDate(java.sql.Date.valueOf(LocalDate.parse(incomeAndOutcomes.getVykazHlavicka().getDatumVykaz(), formatter)));
             outcomes.add(outcome);
         }
-
-        /*List<Outcome> unique = outcomes.stream()
-                .collect(collectingAndThen(toCollection(() -> new TreeSet<>(comparing(Outcome::getParagraf))),
-                        ArrayList::new));*/
 
         List<Outcome> transform = outcomes.stream()
                 .collect(Collectors.groupingBy(income -> income.getParagraf()))
@@ -259,7 +256,6 @@ public class IncomeAndOutcomeServiceImpl implements IncomeAndOutcomeService {
 
         VykazRadekDto prijmy = new VykazRadekDto();
         prijmy = vykazRadekIncomeAssembler.dtosToDto(incomeDao.findGeneralIncome(city, month, year));
-        //System.out.println(prijmy.getApprovedBudget());
         return prijmy;
     }
 
@@ -337,7 +333,6 @@ public class IncomeAndOutcomeServiceImpl implements IncomeAndOutcomeService {
                         mapperIncome.get(vyk.getPolozka().substring(0, 3)).setParent(pomVykaz);
                         pomVykaz.setLevelColor("fourthLevelIncome");
                     } catch (RuntimeException e) {
-                        System.out.println("somarina");
                     }
                 }
             }
@@ -354,7 +349,6 @@ public class IncomeAndOutcomeServiceImpl implements IncomeAndOutcomeService {
                 try {
                     mapperIncome.get(s).setName(incomeDecreeCzechDao.findIncomeDecreeCzechByKlass(s).getName());
                 } catch (RuntimeException e) {
-                    System.out.println("somarina");
                 }
 
                 if (s.startsWith(i)) {
@@ -366,7 +360,6 @@ public class IncomeAndOutcomeServiceImpl implements IncomeAndOutcomeService {
                         try {
                             vyk2.setName(incomeDecreeCzechDao.findIncomeDecreeCzechByKlass(s).getName());
                         } catch (RuntimeException e) {
-                            System.out.println("somarina");
                         }
                         vyks2.add(vyk2);
                         vyk2 = new VykazRadekDto();
@@ -383,7 +376,6 @@ public class IncomeAndOutcomeServiceImpl implements IncomeAndOutcomeService {
                         try {
                             vyk3.setName(incomeDecreeCzechDao.findIncomeDecreeCzechByKlass(s).getName());
                         } catch (RuntimeException e) {
-                            System.out.println("somarina");
                         }
                         vyks3.add(vyk3);
                         mapperIncome.get(s.substring(0, 2)).setLevelColor("secondLevelIncome");
@@ -421,7 +413,6 @@ public class IncomeAndOutcomeServiceImpl implements IncomeAndOutcomeService {
                         mapperOutcome.get(vyk.getParagraf().substring(0, 3)).setParent(pomVykaz);
                         pomVykaz.setLevelColor("fourthLevelOutcome");
                     } catch (RuntimeException e) {
-                        System.out.println("somarina");
                     }
                 }
             }
@@ -434,13 +425,10 @@ public class IncomeAndOutcomeServiceImpl implements IncomeAndOutcomeService {
 
             Map<String, VykazRadekDto> map = new TreeMap<String, VykazRadekDto>(mapperOutcome);
 
-            System.out.println(map.keySet());
-
             for (String s : map.keySet()) {
                 try {
                     mapperOutcome.get(s).setName(outcomeDecreeCzechDao.findOutcomeDecreeCzechByKlass(s).getName());
                 } catch (RuntimeException e) {
-                    System.out.println("somarina");
                 }
 
                 if (s.startsWith(o)) {
@@ -452,7 +440,6 @@ public class IncomeAndOutcomeServiceImpl implements IncomeAndOutcomeService {
                         try {
                             vyk2.setName(outcomeDecreeCzechDao.findOutcomeDecreeCzechByKlass(s).getName());
                         } catch (RuntimeException e) {
-                            System.out.println("somarina");
                         }
                         vyks2.add(vyk2);
                         vyk2 = new VykazRadekDto();
@@ -469,7 +456,6 @@ public class IncomeAndOutcomeServiceImpl implements IncomeAndOutcomeService {
                         try {
                             vyk3.setName(outcomeDecreeCzechDao.findOutcomeDecreeCzechByKlass(s).getName());
                         } catch (RuntimeException e) {
-                            System.out.println("somarina");
                         }
                         vyks3.add(vyk3);
                         mapperOutcome.get(s.substring(0, 2)).setLevelColor("secondLevelOutcome");

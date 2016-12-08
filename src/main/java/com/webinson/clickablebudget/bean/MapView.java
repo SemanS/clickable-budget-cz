@@ -55,10 +55,12 @@ public class MapView implements Serializable {
         //Shared coordinates
         LatLng coord1 = new LatLng(50.261699, 14.298823);
         LatLng coord2 = new LatLng(50.489174, 15.038296);
+        LatLng coord3 = new LatLng(50.4833333, 14.9333333);
 
         //Basic marker
         simpleModel.addOverlay(new Marker(coord1, "Nelahozeves"));
         simpleModel.addOverlay(new Marker(coord2, "Kněžmost"));
+        simpleModel.addOverlay(new Marker(coord3, "Bakov"));
     }
 
     public void onMarkerSelect(OverlaySelectEvent event) throws IOException {
@@ -91,7 +93,7 @@ public class MapView implements Serializable {
             }
         }
         if (i == 0) {
-            addMessage("Toto mesto nie je do programu zapojené. Pošli mail na ceo@webinson.com a prihlás svoje mesto!");
+            addMessage("Tohle město není v programu. Pošli mail na ceo@webinson.com a přihlás své město!");
         }
 
     }

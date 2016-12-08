@@ -22,6 +22,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.SystemEvent;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -185,6 +186,7 @@ public class ClickableBudgetView implements Serializable {
     public void init() {
 
         selectedCity = PrettyContext.getCurrentInstance().getRequestURL().toURL().substring(6);
+        System.out.println(PrettyContext.getCurrentInstance().getRequestURL().toURL().substring(6));
         selectedYear = incomeAndOutcomeService.getLastDateByCity(selectedCity).toString().substring(0, 4);
         fiveIncomes = incomeAndOutcomeService.getFiveIncomes(incomeAndOutcomeService.getLastDateByCity(selectedCity).toString().substring(5, 7), selectedCity, selectedYear);
         fiveOutcomes = incomeAndOutcomeService.getFiveOutcomes(incomeAndOutcomeService.getLastDateByCity(selectedCity).toString().substring(5, 7), selectedCity, selectedYear);
